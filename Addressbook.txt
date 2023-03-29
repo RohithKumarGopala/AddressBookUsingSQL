@@ -1,0 +1,144 @@
+UC 1 : Ability to create a Address Book Service DB
+
+mysql> CREATE DATABASE AddressBookServicess;
+Query OK, 1 row affected (0.01 sec)
+
+==========================================================================================
+
+
+UC 2 :  Ability to create a Address Book Table with first and last names, address, city, state, zip, phone number and email as its attributes.
+
+
+mysql> use AddressBookServicess;
+Database changed
+mysql> CREATE TABLE addressbook(firstname varchar(55),lastname varchar(40),address varchar(55),city varchar(55), state varchar(55), zip int, phone varchar(55), email varchar(55));
+Query OK, 0 rows affected (0.03 sec)
+
+==========================================================================================
+
+UC 3 : Ability to insert new Contacts to Address Book
+
+
+mysql> INSERT INTO addressbook(firstname,lastname,address,city,state,zip,phone,email values('Rohith','Kumar','BheemReddyNagar','Hyderabad','Telangana',500098,'9192939495','rohithrk@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+
+===========================================================================================
+
+UC 4 : Ability to edit existing contact person using their name ...
+mysql> Update addressbook set phone=9193929594 where Firstname='Rohith';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbook;
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| firstname | lastname | address         | city      | state     | zip    | phone      | email              |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| Rohith    | Kumar    | BheemReddyNagar | Hyderabad | Telangana | 500098 | 9193929594 | rohithrk@gmail.com |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+1 row in set (0.00 sec)
+
+===========================================================================================
+
+UC 5 : Ability to delete a person using person's name
+
+
+mysql> DELETE from addressbook where firstname='Rohith';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbook;
+Empty set (0.00 sec)
+
+mysql>  CREATE TABLE addressbooks(firstname varchar(55),lastname varchar(40),address varchar(55),city varchar(55), state varchar(55), zip int, phone varchar(55), email varchar(55));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO addressbooks(firstname,lastname,address,city,state,zip,phone,email) values('Rohith','Kumar','BheemReddyNagar','Hyderabad','Telangana',500098,'9193929594','rohithrk@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbooks;
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| firstname | lastname | address         | city      | state     | zip    | phone      | email              |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| Rohith    | Kumar    | BheemReddyNagar | Hyderabad | Telangana | 500098 | 9193929594 | rohithrk@gmail.com |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+1 row in set (0.00 sec)
+
+
+=========================================================================================
+
+UC 6 : Ability to Retrieve Person belonging to a City or State from the Address Book
+
+mysql> select * from addressbooks where city='Hyderabad';
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| firstname | lastname | address         | city      | state     | zip    | phone      | email              |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| Rohith    | Kumar    | BheemReddyNagar | Hyderabad | Telangana | 500098 | 9193929594 | rohithrk@gmail.com |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbooks where state='Telangana';
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| firstname | lastname | address         | city      | state     | zip    | phone      | email              |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| Rohith    | Kumar    | BheemReddyNagar | Hyderabad | Telangana | 500098 | 9193929594 | rohithrk@gmail.com |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+1 row in set (0.00 sec)
+
+=========================================================================================
+
+UC 7 : Ability to understand the size of address book by City and State
+
+mysql> select count(*) from addressbooks where city = 'Hyderabad';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+========================================================================================
+
+UC 8 : Ability to retrieve entries sorted alphabetically by Person’s name for a given city
+
+
+mysql> SELECT * FROM addressbooks WHERE city = 'Hyderabad' ORDER BY firstname desc;
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| firstname | lastname | address         | city      | state     | zip    | phone      | email              |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+| Rohith    | Kumar    | BheemReddyNagar | Hyderabad | Telangana | 500098 | 9193929594 | rohithrk@gmail.com |
++-----------+----------+-----------------+-----------+-----------+--------+------------+--------------------+
+1 row in set (0.00 sec)
+
+=========================================================================================
+
+UC 9 : Ability to identify each Address Book with name and Type.
+
+
+
+mysql>  ALTER TABLE addressbooks ADD type varchar(55);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update addressbooks set type='Salary' where firstname='Rohith';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+==========================================================================================
+
+UC 10 : Ability to get number of contact persons i.e. count by type
+
+mysql> SELECT COUNT(*) FROM addressbooks WHERE type = 'proffession';
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM addressbooks WHERE type = 'salary';
++----------+
+| COUNT(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
